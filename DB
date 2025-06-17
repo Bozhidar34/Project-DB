@@ -1,0 +1,123 @@
+use hospital_db
+
+db.departments.insertMany([
+  { _id: 1, name: "Cardiology", floor: 2, head: { name: "Dr. Goranov", phone: "0888123456" } },
+  { _id: 2, name: "Neurology", floor: 3, head: { name: "Dr. Ilieva", email: "ilieva@hospital.bg" } },
+  { _id: 3, name: "Pediatrics", floor: 1, head: { name: "Dr. Marinova", phone: "0888999000" } },
+  { _id: 4, name: "Orthopedics", floor: 4 },
+  { _id: 5, name: "Oncology", floor: 5 },
+  { _id: 6, name: "Dermatology", floor: 2 },
+  { _id: 7, name: "Gastroenterology", floor: 3 },
+  { _id: 8, name: "Ophthalmology", floor: 4 },
+  { _id: 9, name: "Psychiatry", floor: 5 },
+  { _id: 10, name: "Emergency", floor: 0, head: { name: "Dr. Stoyanov", phone: "0877665544" } }
+])
+
+db.doctors.insertMany([
+  { _id: 101, name: "Dr. Ivanov", specialty: "Cardiologist", department_id: 1, contact: { email: "ivanov@hospital.bg", phone: "0888123456" } },
+  { _id: 102, name: "Dr. Petrova", specialty: "Neurologist", department_id: 2 },
+  { _id: 103, name: "Dr. Marinova", specialty: "Pediatrician", department_id: 3 },
+  { _id: 104, name: "Dr. Todorov", specialty: "Orthopedic", department_id: 4 },
+  { _id: 105, name: "Dr. Georgieva", specialty: "Oncologist", department_id: 5 },
+  { _id: 106, name: "Dr. Dimitrova", specialty: "Dermatologist", department_id: 6 },
+  { _id: 107, name: "Dr. Stanev", specialty: "Gastroenterologist", department_id: 7 },
+  { _id: 108, name: "Dr. Mihaylov", specialty: "Ophthalmologist", department_id: 8 },
+  { _id: 109, name: "Dr. Nikolova", specialty: "Psychiatrist", department_id: 9 },
+  { _id: 110, name: "Dr. Hristov", specialty: "Emergency Medicine", department_id: 10 }
+])
+
+db.patients.insertMany([
+  { _id: 1001, name: "Georgi Dimitrov", age: 45, gender: "Male", allergies: ["penicillin"], address: { city: "Sofia", zip: "1000" } },
+  { _id: 1002, name: "Maria Ilieva", age: 30, gender: "Female", address: { city: "Plovdiv", zip: "4000" } },
+  { _id: 1003, name: "Ivan Stoyanov", age: 10, gender: "Male" },
+  { _id: 1004, name: "Stefan Georgiev", age: 60, gender: "Male", allergies: ["aspirin"] },
+  { _id: 1005, name: "Desislava Petrova", age: 26, gender: "Female" },
+  { _id: 1006, name: "Tanya Koleva", age: 34, gender: "Female", address: { city: "Varna" } },
+  { _id: 1007, name: "Boyan Todorov", age: 29, gender: "Male" },
+  { _id: 1008, name: "Aneta Ruseva", age: 53, gender: "Female", chronic_conditions: ["diabetes"] },
+  { _id: 1009, name: "Mitko Iliev", age: 40, gender: "Male" },
+  { _id: 1010, name: "Silvia Hristova", age: 70, gender: "Female", address: { city: "Burgas", zip: "8000" } }
+])
+
+db.appointments.insertMany([
+  { patient_id: 1001, doctor_id: 101, date: ISODate("2025-06-20T10:00:00Z"), reason: "Checkup" },
+  { patient_id: 1002, doctor_id: 102, date: ISODate("2025-06-21T12:00:00Z") },
+  { patient_id: 1003, doctor_id: 103, date: ISODate("2025-06-22T09:00:00Z"), notes: "First visit" },
+  { patient_id: 1004, doctor_id: 104, date: ISODate("2025-06-23T14:00:00Z") },
+  { patient_id: 1005, doctor_id: 105, date: ISODate("2025-06-24T11:30:00Z") },
+  { patient_id: 1006, doctor_id: 106, date: ISODate("2025-06-25T15:15:00Z") },
+  { patient_id: 1007, doctor_id: 107, date: ISODate("2025-06-26T08:45:00Z") },
+  { patient_id: 1008, doctor_id: 108, date: ISODate("2025-06-27T10:00:00Z") },
+  { patient_id: 1009, doctor_id: 109, date: ISODate("2025-06-28T16:00:00Z") },
+  { patient_id: 1010, doctor_id: 110, date: ISODate("2025-06-29T07:30:00Z") }
+])
+
+db.treatments.insertMany([
+  { patient_id: 1001, diagnosis: "Hypertension", medication: ["Lisinopril"], doctor_id: 101 },
+  { patient_id: 1002, diagnosis: "Migraine", medication: ["Ibuprofen"], doctor_id: 102 },
+  { patient_id: 1003, diagnosis: "Flu", medication: ["Paracetamol"], doctor_id: 103 },
+  { patient_id: 1004, diagnosis: "Knee pain", medication: [], doctor_id: 104 },
+  { patient_id: 1005, diagnosis: "Cancer", medication: ["Chemotherapy"], doctor_id: 105 },
+  { patient_id: 1006, diagnosis: "Eczema", medication: ["Steroid cream"], doctor_id: 106 },
+  { patient_id: 1007, diagnosis: "Ulcer", medication: ["Omeprazole"], doctor_id: 107 },
+  { patient_id: 1008, diagnosis: "Glaucoma", medication: ["Eye drops"], doctor_id: 108 },
+  { patient_id: 1009, diagnosis: "Depression", medication: ["Sertraline"], doctor_id: 109 },
+  { patient_id: 1010, diagnosis: "Heart attack", medication: ["Aspirin", "Nitroglycerin"], doctor_id: 110 }
+])
+
+db.departments.find()
+db.departments.find({ name: "Cardiology" })
+db.departments.find({ name: "Cardiology", floor: 2 })
+
+db.doctors.find()
+db.doctors.find({ specialty: "Neurologist" })
+db.doctors.find({ specialty: "Neurologist", department_id: 2 })
+
+db.patients.find()
+db.patients.find({ gender: "Female" })
+db.patients.find({ gender: "Female", age: { $gt: 30 } })
+
+db.appointments.find()
+db.appointments.find({ doctor_id: 101 })
+db.appointments.find({ doctor_id: 101, patient_id: 1001 })
+
+db.treatments.find()
+db.treatments.find({ diagnosis: "Flu" })
+db.treatments.find({ diagnosis: "Flu", doctor_id: 103 })
+
+db.departments.updateOne({ name: "Cardiology" }, { $set: { floor: 10 } })
+db.doctors.updateOne({ name: "Dr. Ivanov" }, { $set: { specialty: "Cardiac Surgeon" } })
+db.patients.updateOne({ _id: 1002 }, { $set: { age: 31 } })
+db.appointments.updateOne({ patient_id: 1001 }, { $set: { reason: "Annual checkup" } })
+db.treatments.updateOne({ patient_id: 1001 }, { $push: { medication: "Atenolol" } })
+
+db.departments.deleteOne({ name: "Psychiatry" })
+db.doctors.deleteOne({ name: "Dr. Mihaylov" })
+db.patients.deleteOne({ name: "Ivan Stoyanov" })
+db.appointments.deleteOne({ patient_id: 1003 })
+db.treatments.deleteOne({ patient_id: 1003 })
+
+db.departments.aggregate([
+  { $group: { _id: "$floor", count: { $sum: 1 } } },
+  { $sort: { count: -1 } }
+])
+
+db.doctors.aggregate([
+  { $group: { _id: "$specialty", total: { $sum: 1 } } },
+  { $sort: { total: -1 } }
+])
+
+db.patients.aggregate([
+  { $group: { _id: "$gender", avgAge: { $avg: "$age" } } },
+  { $sort: { avgAge: -1 } }
+])
+
+db.appointments.aggregate([
+  { $group: { _id: "$doctor_id", totalAppointments: { $sum: 1 } } },
+  { $sort: { totalAppointments: -1 } }
+])
+
+db.treatments.aggregate([
+  { $group: { _id: "$diagnosis", count: { $sum: 1 } } },
+  { $sort: { count: -1 } }
+])
